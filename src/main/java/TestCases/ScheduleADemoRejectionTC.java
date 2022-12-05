@@ -1,29 +1,23 @@
 package TestCases;
 import Page.ScheduleADemoPage;
+import Setup.LoadProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import java.io.IOException;
-import java.util.Properties;
 
 public class ScheduleADemoRejectionTC {
     public static void main(String[] args) {
         
-       String scheduleADemoURL = "";
-       String companyName = "";
+       //Constants 
+       final String SCHEDULE_DEMO_URL = "scheduleADemoURL";
+       final String COMPANY_NAME = "companyName";
        final String THANK_YOU_MESSAGE = "Thank you for your interest in Zego™!";
        final String REJECTION_NUM_UNITS = "30";
 
        //Read setup data values from a config file
-       try {
-        Properties properties = new Properties();
-        properties.load(ScheduleADemoRejectionTC.class.getClassLoader().getResourceAsStream("Configuration.properties"));
-        scheduleADemoURL = properties.getProperty("scheduleADemoURL");
-        companyName = properties.getProperty("companyName");
-       } catch (IOException e) {}
-
+       LoadProperties loadProperties = new LoadProperties();
 
         WebDriver driver = new ChromeDriver();
-        driver.get(scheduleADemoURL);
+        driver.get(loadProperties.getConfigProperty(SCHEDULE_DEMO_URL));
         ScheduleADemoPage scheduleADemoPage = new ScheduleADemoPage();
 
         /*  Scenario: play the video, fill out the form correctly but with less than 100 units
@@ -31,13 +25,15 @@ public class ScheduleADemoRejectionTC {
             contact information for further assistance
         */
         //Perform steps
-        scheduleADemoPage.clickPlay(driver);
-        scheduleADemoPage.completeForm(driver, companyName, REJECTION_NUM_UNITS);
+        //scheduleADemoPage.clickPlay(driver);
+        scheduleADemoPage.completeForm(driver, loadProperties.getConfigProperty(COMPANY_NAME), REJECTION_NUM_UNITS);
         scheduleADemoPage.selectProductPay(driver);
         scheduleADemoPage.clickSubmit(driver);
+
         //Wait for page to load
         try { Thread.sleep(10000); } 
         catch (InterruptedException e) { e.printStackTrace(); }
+
         //Condition to verify actual behavior is as expected
         if (!driver.getPageSource().contains(THANK_YOU_MESSAGE)) {
             System.out.println("TEST FAILED");
