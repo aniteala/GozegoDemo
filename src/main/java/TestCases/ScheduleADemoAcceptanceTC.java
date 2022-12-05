@@ -25,7 +25,7 @@ public class ScheduleADemoAcceptanceTC {
             and a calender to select the date and time to schedule
         */
         //Perform steps
-        //scheduleADemoPage.clickPlay(driver);
+        scheduleADemoPage.clickPlay(driver);
         scheduleADemoPage.completeForm(driver, loadProperties.getConfigProperty(COMPANY_NAME), ACCEPTANCE_NUM_UNITS);
         scheduleADemoPage.selectProductPay(driver);
         scheduleADemoPage.clickSubmit(driver);

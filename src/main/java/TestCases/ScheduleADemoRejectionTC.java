@@ -25,7 +25,7 @@ public class ScheduleADemoRejectionTC {
             contact information for further assistance
         */
         //Perform steps
-        //scheduleADemoPage.clickPlay(driver);
+        scheduleADemoPage.clickPlay(driver);
         scheduleADemoPage.completeForm(driver, loadProperties.getConfigProperty(COMPANY_NAME), REJECTION_NUM_UNITS);
         scheduleADemoPage.selectProductPay(driver);
         scheduleADemoPage.clickSubmit(driver);

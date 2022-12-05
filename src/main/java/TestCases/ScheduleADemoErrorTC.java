@@ -24,7 +24,7 @@ public class ScheduleADemoErrorTC {
             except do not select a checkbox for Product Interest
             Expectated Outcome: Remain on the same page and see an error message 
         */
-        //scheduleADemoPage.clickPlay(driver);
+        scheduleADemoPage.clickPlay(driver);
         scheduleADemoPage.completeForm(driver, loadProperties.getConfigProperty(COMPANY_NAME), ACCEPTANCE_NUM_UNITS);
         scheduleADemoPage.clickSubmit(driver);
 
