@@ -5,15 +5,23 @@ import org.openqa.selenium.WebElement;
 
 public class ScheduleADemoPage {
 
-    //Locator for title and form inputs
+    //Locators for title, form inputs, and other web elements
     By title = By.id("main");
     By firstName = By.id("FirstName");
     By lastName = By.id("LastName");
+    By email = By.id("Email");
+    By phoneNum = By.id("Phone");
+    By companyName = By.id("Company");
+    By numUnits = By.id("Units_Opportunity__c");
+    By submitButton = By.className("mktoButton");
+    By productCheckboxPay = By.id("LblmktoCheckbox_9901_0"); 
+    By missingCheckboxError = By.id("ValidMsgProduct_Interest__c");
     
+
     //Method to click video play button
     /* 1. switch to iFrame
        2. click to play the video
-       3. wait to play video for 30 seconds
+       3. wait to play video for a few seconds
        4. then switch out of the iFrame */
     public void clickPlay(WebDriver driver) {
 
@@ -24,15 +32,34 @@ public class ScheduleADemoPage {
         driver.switchTo().frame(iframeElement);
         driver.findElement(playButton).click();
         try {
-            Thread.sleep(12000);
+            Thread.sleep(6000);
         } catch(InterruptedException e) { e.toString(); }
 
         driver.switchTo().defaultContent();
     }
 
-    //Method to fill out first name
-    public void enterFirstName(WebDriver driver) {
+    //Method to fill out form
+    public void completeForm(WebDriver driver, String nameOfCompany, String numberOfUnits) {
         driver.findElement(firstName).sendKeys("Tahani");
         driver.findElement(lastName).sendKeys("Yosuf");
+        driver.findElement(email).sendKeys("tahaniyosuf@gmail.com");
+        driver.findElement(phoneNum).sendKeys("5712762801");
+        driver.findElement(companyName).sendKeys(nameOfCompany);
+        driver.findElement(numUnits).sendKeys(numberOfUnits);
+    }
+
+    //Method to click the Product Interest-Pay checkbox
+    public void selectProductPay(WebDriver driver) {
+        driver.findElement(productCheckboxPay).click();
+    }
+
+    //Method to click 'submit & Pick a Time' button
+    public void clickSubmit(WebDriver driver) {
+        driver.findElement(submitButton).click();
+    }
+
+    //Method to retrieve the missing checkbox entry error message 
+    public String getCheckboxErrorMessage(WebDriver driver) {
+        return driver.findElement(missingCheckboxError).getText();
     }
 }
